@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>操作jQuery</title>
+		<style type="text/css">
+			.my{
+				width:300px
+			}
+		</style>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div class="my">我只是一个盒子</div>
+		<div class="test">
+			<p class="red">1</p>
+			<p>2</p>
+			<p>3</p>
+			<p class="green red">4</p>
+			<p class="pink">5</p>
+			<input name="emial" />
+			<input name="A B" />
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			var d = $(".red");
+			var x = d.length;
+			var y = $("[name=emial]").length;
+			var z = $("[name=\"A B\"]").length;
+			var m = $("p,input").length;
+			var n = $("p.red,p.pink").length;
+			var list = $('div.test p');
+			var arr = list.map(function() {
+				return this.innerHTML;
+			}).get();
+//			alert(arr);
+//			alert(n);
+		}
+	</script>
+
+</html>

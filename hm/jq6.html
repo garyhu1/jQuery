@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>利用jq实现动画</title>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.test-d {
+				width: 300px;
+				height: 100px;
+			}
+			
+			#test-img {
+				width: 300px;
+				height: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="test-d">
+			<img src="../img/img6.jpg" id="test-img" />
+		</div><br />
+		<button id="show-btn">显示</button>
+		<button id="hide-btn">隐藏</button>
+		<button id="too">根据状态来显示或隐藏</button><br /><br />
+		<button id="vertical-show">向下显示</button>
+		<button id="vertical-hide">向上隐藏</button><br /><br />
+		<button id="cus">自定义动画</button><br /><br />
+		<button id="connection">组合动画</button>
+	</body>
+	<script type="text/javascript">
+		var icon = $('#test-img');
+		var showBtn = $('#show-btn');
+		var hideBtn = $('#hide-btn');
+		var verticalShow = $('#vertical-show');
+		var verticalHide = $('#vertical-hide');
+		var toggBtn = $('#too');
+		var cusBtn = $('#cus');
+		//jq原生动画
+		showBtn.click(function() {
+			icon.show(1000);
+		});
+		hideBtn.click(function() {
+			icon.hide('slow');
+		});
+		toggBtn.click(function() {
+			//			icon.toggle(2000);
+			icon.toggle('slow');
+		});
+		verticalHide.click(function() {
+			icon.slideUp('slow');
+		});
+		verticalShow.click(function() {
+			icon.slideDown(1000);
+		});
+		//自定义的动画
+		//第一个参数是想传入的样式值
+		//第二参数是动画执行的时间，然后在该时间段过度到指定的样式上
+		//第三个参数是动画执行完成后调用的函数
+		cusBtn.click(function() {
+			icon.animate({
+				opacity: 0,
+				width: '200px'
+			}, 3000,
+			//动画执行完成调用
+			function(){
+				//恢复初始状态
+				$(this).css('width','200px').css('opacity',"1");
+			});
+		});
+		
+		// 动画效果：slideDown - 暂停 - 放大 - 暂停 - 缩小
+		$('#connection').click(function(){
+			icon.slideDown('slow')
+			    //延迟1秒执行动画
+			    .delay(1000)
+			    //放大动画
+			    .animate({
+			    	width: '800px',
+			    	height: '500px'
+			    },2000)
+			    //延迟1秒执行动画
+			    .delay(1000)
+			    //缩小动画
+			    .animate({
+			    	width: '200px',
+			    	height: '100px'
+			    },3000);
+		});
+	</script>
+
+</html>

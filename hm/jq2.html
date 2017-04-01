@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>利用jQuery修改DOM</title>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div id="test-div">
+			<ul>
+				<li><span>JavaScript</span></li>
+				<li><span>Python</span></li>
+				<li><span>Swift</span></li>
+			</ul>
+		</div>
+		<div id="test-l" style="margin-top: 50px;">
+			<ul>
+				<li id="PHP"><span>PHP</span></li>
+				<li id="chia"><span>Chinese</span></li>
+				<li id="en"><span>English</span></li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var testUl = $('#test-div>ul');
+		//通过传入字符串来添加新节点
+		testUl.append('<li class="android"><span>Android</span></li>');//添加新的节点
+		
+		//通过传入Dom对象来添加新节点
+		var li = document.createElement("li");
+		li.innerHTML = '<span>IOS</span>';
+		testUl.append(li);//添加新的节点
+		
+		//通过传入jQuery对象来添加新节点
+		testUl.append($('#PHP'));//如果该节点在文档中已经存在，首先先移除，再添加新的节点到最后面
+		//添加函数对象
+		testUl.append(function(index,html){
+			return '<li><span>Language - ' + index + '</span></li>';
+		});
+		
+		//添加节点到最前面
+		testUl.prepend('<li class="rn"><span>React Native</span></li>');
+		
+		//添加新节点到第一个元素后面
+		//如果要添加到某个节点之前，可用before();
+		var js = $('#test-div>ul>li:first-child');
+		js.after('<li class="go"><span>Go</span></li>');
+		
+		//删除节点
+		var testL = $("#test-l>ul>li");
+		testL.remove();//删除所有的li节点
+	</script>
+
+</html>

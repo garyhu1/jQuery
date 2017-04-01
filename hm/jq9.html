@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>jq的扩展</title>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<style type="text/css">
+			.uk-icon-external-link{
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="content">
+			<p>什么是<span>jQuery</span>:</p>
+			<p><span>jQuery</span>是最流行的<span>JavaScript</span>库</p>
+		</div>
+		<div id="test-highlight">
+			<p>如何编写<span>jQuery</span> <span>Plugin</span></p>
+			<p>编写<span>jQuery</span> <span>Plugin</span>，要设置<span>默认值</span>，并允许用户修改<span>默认值</span>，或者运行时传入<span>其他值</span>。</p>
+		</div>
+		<div id="test-external">
+			<p>如何学习
+				<a href="http://jquery.com">jQuery</a>？</p>
+			<p>首先，你要学习
+				<a href="/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000">JavaScript</a>，并了解基本的
+				<a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a>。</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//自定义jQuery方法
+		$.fn.highShow = function() {
+			this.css('background', 'cornflowerblue').css('color', 'yellow');
+			return this;
+		}
+
+		//自定义带参数的方法
+		$.fn.highShow2 = function(option) {
+			var bgColor = option && option.background || '#fffceb';
+			var color = option && option.color || '#d85030';
+			this.css('background', bgColor).css('color', color);
+			return this;
+		}
+
+		/*
+		 * 另一种方法是使用jQuery提供的辅助方法$.extend(target, obj1, obj2, ...)，
+		 * 它把多个object对象的属性合并到第一个target对象中，遇到同名属性，
+		 * 总是使用靠后的对象的值，也就是越往后优先级越高：
+		 */
+		// 把默认值和用户传入的options合并到对象{}中并返回:
+		//		var opts = $.extend({}, {
+		//			backgroundColor: '#00a8e6',
+		//			color: '#ffffff'
+		//		}, options);
+
+		//		$('#content>p>span').highShow();
+		$('#content>p>span').highShow2({
+			background: '#00a8e6',
+			color: '#FFFFFF'
+		});
+
+		//由于上面的所有方法的局限性，结合上面的所有方法可得：
+		$.fn.cusShow = function(options) {
+			var opts = $.extend({}, $.fn.cusShow.defaultValues, options);
+			this.css('background', opts.background).css('color', opts.color);
+			return this;
+		}
+
+		//初始化默认值
+		$.fn.cusShow.defaultValues = {
+			background: 'red',
+			color: '#fff'
+		}
+
+		//设置默认值
+		$.fn.cusShow.defaultValues.color = "#ffffff";
+		$.fn.cusShow.defaultValues.background = "#93D10D";
+
+		$('#test-highlight p:first-child span').cusShow();
+		$('#test-highlight p:last-child span').cusShow({
+			backgroound: '#0DC9D1',
+			color: '#D6A512'
+		})
+
+		/*
+		 * 总结：
+		 * 1、给$.fn绑定函数，实现插件的代码逻辑；
+		 * 2、插件函数最后要return this;以支持链式调用；
+		 * 3、插件函数要有默认值，绑定在$.fn.<pluginName>.defaults上；
+		 * 4、用户在调用时可传入设定值以便覆盖默认值。
+		 */
+
+		//最后扩展一个带有过滤的方法
+		$.fn.external = function() {
+				return this.filter('a').each(function() {
+						var a = $(this);
+						var url = a.attr('href');
+						if(url && (url.indexOf('http://') === 0 || url.indexOf('https://'))) {
+							a.attr('href', '#0')
+								.removeAttr('target')
+								.append(' <i class = "uk-icon-external-link" > </i>')
+									.click(function() {
+										if(confirm('你确定要前往：' + url + "?")) {
+											window.open(url);
+										}
+									});
+								}
+						});
+				}
+		$('#test-external>p>a').external();
+	</script>
+
+</html>

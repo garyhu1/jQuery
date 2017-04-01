@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div id="test-div">
+			<ul>
+				<li><span>JavaScript</span></li>
+				<li><span>Python</span></li>
+				<li><span>Swift</span></li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var ul = $('#test-div>ul');
+		ul.append('<li><span>Pascal</span></li>');
+		ul.append('<li><span>Lua</span></li>');
+		ul.append('<li><span>Ruby</span></li>');
+		var list = $('#test-div li');
+		alert(list.length);
+		var arr = list.map(function() {
+			return $(this).text();
+		}).get();
+//		alert(arr);
+		arr.sort();
+//		alert(arr);
+		for(var i = 0; i < arr.length; i++) {
+			$(list.get(i)).text(arr[i]);
+		}
+		// 测试:
+		(function() {
+			var s = $('#test-div>ul>li').map(function() {
+				return $(this).text();
+			}).get().join(',');
+			if(s === 'JavaScript,Lua,Pascal,Python,Ruby,Swift') {
+				alert('测试通过!');
+			} else {
+				alert('测试失败: ' + s);
+			}
+		})();
+	</script>
+
+</html>

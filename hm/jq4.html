@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>利用jq来触发事件</title>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<button id="btn">点击</button>
+		</div>
+		<input type="text" id="edit"/><br />
+		<input type="button" value="提交" id="sum"/>
+	</body>
+	<script type="text/javascript">
+		//这种写法的意思是document的ready()事件
+		//即：$(document).ready(function(){.....});
+		$(function() {
+			alert('DOM初始化完成');
+		});
+		var btn = $('#btn');
+		//用on的写法来触发事件
+		/*btn.on('click',function(){
+			alert('Hello');
+		});*/
+		//也可用下面方法来触发点击事件
+		//此方法最常用
+		function hello(){
+			alert('Hello World!');
+		}
+		btn.click(hello);
+
+        //移除点击事件
+//		btn.off('click', hello);
+//      btn.off();
+        btn.off('click');
+        
+        var inp = $('#edit');
+        inp.change(function(){
+//      	alert(inp.val());
+        });
+        $('#sum').click(function(){
+//      	inp.val('garyhu');
+        });
+        var s = inp.change();
+//      alert(s);
+	</script>
+
+</html>

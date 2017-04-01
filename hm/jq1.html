@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>利用jq操作DOM</title>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+		<div>
+			<ul id="test-ul">
+				<li class="js">JavaScript</li>
+				<li name="book">Java &amp; JavaScript</li>
+			</ul>
+		</div>
+		<div>
+			<ul id="test-css">
+				<li class="lang dy"><span>JavaScript</span></li>
+				<li class="lang hide"><span>Java</span></li>
+				<li class="lang dy"><span>Python</span></li>
+				<li class="lang wid"><span>Swift</span></li>
+				<li class="lang dy"><span>Scheme</span></li>
+			</ul>
+		</div>
+		<div id="test-div" name="Test" start="1">...</div>
+		<input id="test-radio" type="radio" name="test" checked="checked" value="1"><br />
+
+		<input id="test-input" name="email" value=""><br />
+		<select id="test-select" name="city">
+			<option value="BJ" selected>Beijing</option>
+			<option value="SH">Shanghai</option>
+			<option value="SZ">Shenzhen</option>
+		</select><br />
+		<textarea id="test-textarea">Hello</textarea>
+	</body>
+	<script type="text/javascript">
+		var tul = $('#test-ul');
+		var x = $('ul#test-ul li[name=book]').text();
+		var y = $('ul#test-ul li[name=book]').html("Andriod");
+		//		alert(y);
+		var arr = $('#test-ul li').text("JS"); //返回的事jQuery对象
+		//		alert(arr.length);
+		var jq = $('#test-css li.dy>span');
+		var tt = $('#test-css li.hide>span');
+		jq.css('background', 'rosybrown').css('color', '#fff');
+		var dd = jq.css('color'); //获取属性值
+		jq.css('color', ''); //清除该属性
+		jq.css('color', 'red'); //修改属性值
+		tt.hide();
+		jq.width(); //获取宽度
+		var pp = $(".wid");
+		//		pp.hide();
+		pp.css('background', 'blue');
+		pp.width('200px');
+		//		alert(jq.width());
+		//		alert(dd);
+		var aoa = $('#test-div');
+		var email = aoa.attr('email'); //undefine;
+		aoa.attr('name', 'garyhu'); //修改name的属性值
+		var name = aoa.attr('name'); //获取name的属性值
+		aoa.removeAttr('start'); //删除start属性值
+		var st = aoa.attr('start');
+		//      alert(st);
+		var yy = $('#test-radio');
+		var sd = yy.prop('checked',false); //true
+		var sb = yy.attr('checked'); //'checked'
+		var dsb = yy.is(':checked'); //true
+		//      alert(sb);
+		//      alert(sd);
+		//      alert(dsb);
+		var intp = $('#test-input');
+		var selec = $('#test-select');
+		var textare = $('#test-textarea');
+		intp.val("你好");//向输入框中添加值
+		var bb = intp.val();//获取输入框中的内容
+		selec.val("SH");//设置下拉框的默认值
+		
+		var assa = textare.val();
+		textare.val("Hello world!")
+//		alert(assa);
+//		alert(bb);
+        var ll = $('.lang');
+        var arr = ll.map(function() {
+        	return $(this).text();
+        }).get();
+        alert(arr);
+	</script>
+
+</html>
