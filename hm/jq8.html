@@ -34,5 +34,14 @@
 //				showLog('无论成功还是失败，都会执行的方法');
 			});
 		});
+		$('#btn').click(function(){
+			$.ajax({
+				type:"get",
+				url:"../js/cities.json",
+				async:true,
+				dataType: 'josn',
+				contentType: 'application/json',
+			});
+		});
 	</script>
 </html>
