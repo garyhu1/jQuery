@@ -1,47 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>jq的ajax请求</title>
 		<script type="text/javascript" src="../js/jquery.min.js"></script>
 	</head>
+
 	<body>
 		<button id="btn">加载数据</button>
 		<p id="test-jsonp"></p>
 	</body>
 	<script type="text/javascript">
-		function refreshPrice(data) {
-			var p = document.getElementById('test-jsonp');
-			p.innerHTML = '当前价格：' +
-				data['0000001'].name + ': ' +
-				data['0000001'].price + '；' +
-				data['1399001'].name + ': ' +
-				data['1399001'].price;
-		}
-		$("#btn").click(function() {
-			$.ajax({
-				method: "get",
-				url: "../js/cities.json",
-				jsonp: 'refreshPrice',
-				contentType: 'application/json',
-				async: true,
-				dataType: 'json'
-			}).done(function(data) {
-//				showLog("成功获取数据：" + JSON.stringify(data));
-			}).fail(function(error, status) {
-//				showLog("失败：" + error.status + '\n' + "原因：" + status);
-			}).always(function() {
-//				showLog('无论成功还是失败，都会执行的方法');
-			});
-		});
-		$('#btn').click(function(){
-			$.ajax({
-				type:"get",
-				url:"../js/cities.json",
-				async:true,
-				dataType: 'josn',
-				contentType: 'application/json',
-			});
-		});
+		var pp = $("#test-jsonp");
+		/*$.getJSON("http://api.money.126.net/data/feed/0000001,1399001?callback=?", function(jsonData) {
+			pp.html('当前价格：' +
+				jsonData['0000001'].name + ': ' +
+				jsonData['0000001'].price + '；' +
+				jsonData['1399001'].name + ': ' +
+				jsonData['1399001'].price);
+		});*/
+		$.getJSON("http://example.com/data.php?callback=?",function(jsonData){
+			pp.text(jsonData);
+		})
 	</script>
+
 </html>
