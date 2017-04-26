@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery用$.fn.extend来扩展方法</title>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<input type="checkbox" id="baseket"/>篮球<br />
+			<input type="checkbox" id="footer"/>足球
+			<p id="text">需要修改的内容</p>
+		</div>
+	</body>
+	<script>
+		$(function () { 
+	$.fn.extend({
+		check: function() {
+//			return function (){
+//				this.checked = true;
+//			}
+			return this.each(function() {
+				this.checked = true;
+			});
+		},
+		uncheck: function() {
+			return this.each(function() {
+				this.checked = false;
+			});
+		},
+		modifyText : function () {
+			this.css('color','#fff').css('background', '#24D1CE');
+		}
+	});
+	// 使用新创建的.check() 方法
+	$( "input[type='checkbox']" ).check();
+	$('#text').modifyText();
+})
+	</script>
+</html>

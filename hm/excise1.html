@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery自定义的方法</title>
+		<script src="../js/jquery.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<h1>大标题</h1>
+			<p id="text1">我是中间的文本内容</p>
+		</div>
+	</body>
+	<script>
+		$.fn.modifyCss =function (options){
+			var opts =$.extend({}, $.fn.modifyCss.defaultValue, options);
+			this.css('color',opts.color).css('background',opts.backgroundColor);
+			return this;
+		}
+		
+		$.fn.modifyCss.defaultValue = {
+			color : "red",
+			backgroundColor : "#FFFFFF"
+		}
+		
+		//使用默认的值
+		$('h1').modifyCss();
+		//使用传入的值
+		$("#text1").modifyCss({
+			color: "#fff",
+			backgroundColor : "#24D1CE"
+		});
+	</script>
+</html>
